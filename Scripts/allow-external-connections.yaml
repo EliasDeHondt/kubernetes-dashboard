@@ -1,0 +1,46 @@
+############################
+# @author Elias De Hondt   #
+# @see https://eliasdh.com #
+# @since 24/09/2024        #
+############################
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt  # Cluster issuer name
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory # Production url
+    email: abc@abc.com
+    privateKeySecretRef:
+      name: k8-dashboard-tls-production # Secret name
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:    
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  name: dashboard-api-ingress
+  namespace: kubernetes-dashboard
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: example.com
+      http:
+        paths:
+        - path: /          
+          pathType: Prefix
+          backend:
+            service:
+              name: kubernetes-dashboard
+              port:
+                number: 443
+  tls:
+    - hosts:
+        - test.eliasdh.com
+      secretName: k8-dashboard-tls-production
+---
