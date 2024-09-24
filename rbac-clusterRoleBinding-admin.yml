@@ -1,4 +1,8 @@
-# IRSOLS Inc 2019-2020
+############################
+# @author Elias De Hondt   #
+# @see https://eliasdh.com #
+# @since 24/09/2024        #
+############################
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
