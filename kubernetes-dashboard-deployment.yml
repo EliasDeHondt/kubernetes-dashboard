@@ -24,7 +24,7 @@ metadata:
   name: kubernetes-dashboard
   namespace: kubernetes-dashboard
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: 443
       targetPort: 8443
