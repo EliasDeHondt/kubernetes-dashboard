@@ -283,7 +283,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: example.com
+    - host: test.eliasdh.com
       http:
         paths:
         - path: /          
